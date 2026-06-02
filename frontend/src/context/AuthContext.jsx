@@ -10,25 +10,12 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        // Check if token exists in localStorage
-        const token = localStorage.getItem('accessToken');
-        
-        if (token) {
-          // If token exists, fetch current user
-          const response = await getCurrentUser();
-          
-          if (response.data) {
-            setUser(response.data);
-          } else if (response.user) {
-            setUser(response.user);
-          }
-        } else {
-          // No token found
-          setUser(null);
-        }
+        // BUG: Clear tokens on every refresh (user logs out)
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        setUser(null);
       } catch (err) {
         console.error('Auth check failed:', err);
-        // Clear invalid tokens
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
         setUser(null);

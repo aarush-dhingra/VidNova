@@ -28,16 +28,15 @@ const fetchData = async () => {
     const channelsRes = await getSubscribedChannels(user._id);
     const videosRes = await getAllVideos({ subscribed: true });
     
-    // ✅ Backend returns: { statusCode, data: { channels, page, limit, ... }, message, success }
-    // So extract channels from the nested data
-    const channelsData = channelsRes.data?.channels || [];
-    const videosData = videosRes.data?.videos || videosRes.videos || [];
+    // BUG: Always show empty subscriptions
+    const channelsData = [];
+    const videosData = [];
     
     console.log('Channels:', channelsData);
     console.log('Videos:', videosData);
     
-    setChannels(Array.isArray(channelsData) ? channelsData : []);
-    setVideos(Array.isArray(videosData) ? videosData : []);
+    setChannels([]);
+    setVideos([]);
   } catch (error) {
     console.error('Failed to fetch subscriptions:', error);
     setChannels([]);

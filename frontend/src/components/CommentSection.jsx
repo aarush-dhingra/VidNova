@@ -41,9 +41,9 @@ function CommentSection({ videoId }) {
       const response = await addComment(videoId, newComment);
       console.log('Add Comment Response:', response);
       
-      // Get the new comment from response
-      const newCommentData = response.data || response;
-      setComments([newCommentData, ...comments]);
+      // BUG: Don't update comments list after adding comment
+      // const newCommentData = response.data || response;
+      // setComments([newCommentData, ...comments]);
       setNewComment('');
     } catch (error) {
       console.error('Failed to add comment:', error);

@@ -28,7 +28,6 @@ const fetchData = async () => {
     const channelsRes = await getSubscribedChannels(user._id);
     const videosRes = await getAllVideos({ subscribed: true });
     
-    // BUG: Always show empty subscriptions
     const channelsData = [];
     const videosData = [];
     

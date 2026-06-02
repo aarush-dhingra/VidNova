@@ -10,7 +10,6 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        // BUG: Clear tokens on every refresh (user logs out)
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
         setUser(null);
